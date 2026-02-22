@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "The primary table for order lifecycle tracking, from purchase to delivery."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+      - name: order_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['delivered', 'shipped', 'canceled', 'invoiced', 'processing', 'approved', 'unavailable', 'created']
+      - name: purchased_at
+        description: "Timestamp when the customer placed the order."
+        tests:
+          - not_null
+      - name: approved_at
+      - name: shipped_at
+      - name: delivered_at
+        description: "Actual date of delivery. Null if order is still in progress."
+      - name: estimated_delivery_at

@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_product_category_translations
+    description: "Mapping of Portuguese category names to English."
+    columns:
+      - name: category_name_pt
+        tests:
+          - unique
+          - not_null
+      - name: category_name
+        description: "English translation of category used for reporting."

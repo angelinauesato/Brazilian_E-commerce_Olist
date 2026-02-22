@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_sellers
+    description: "Merchant directory containing seller location data."
+    columns:
+      - name: seller_id
+        tests:
+          - unique
+          - not_null
+      - name: zip_code_prefix
+        tests:
+          - not_null
+      - name: city
+      - name: state_code

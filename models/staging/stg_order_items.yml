@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_order_items
+    description: "Line-item level detail for every product in an order."
+    columns:
+      - name: order_item_key
+        description: "Surrogate key: md5(order_id || line_item_number)"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+      - name: line_item_number
+      - name: product_id
+      - name: seller_id
+      - name: seller_ship_before_at
+      - name: item_price_amount
+        tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: ">= 0"
+      - name: seller_ship_before_at
+        description: "The deadline for the seller to ship the product (Merchant SLA)."
+      - name: total_item_cost_amount

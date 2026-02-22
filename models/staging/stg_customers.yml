@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Customer directory linking specific orders to unique user identities."
+    columns:
+      - name: order_customer_key
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "The permanent ID for a customer across multiple orders."
+        tests:
+          - not_null
+      - name: zip_code_prefix
+      - name: city
+      - name: state_code

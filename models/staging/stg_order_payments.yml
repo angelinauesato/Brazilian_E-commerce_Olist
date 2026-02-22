@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_order_payments
+    description: "Transactional data for order payments and installments."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: payment_method_sequence
+      - name: payment_method
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined']
+      - name: installment_count
+        tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: '>=1'
+      - name: payment_amount

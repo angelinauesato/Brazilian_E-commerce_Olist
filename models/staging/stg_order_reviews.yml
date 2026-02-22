@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_order_reviews
+    description: "Customer feedback and star ratings."
+    columns:
+      - name: review_id
+        tests:
+          - unique:
+              config:
+                  severity: Warn
+                  warn_if: ">10" # we will remove the duplication of reviews in the intermediate layers.
+          - not_null
+      - name: order_id
+      - name: rating_score
+        tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: comment_title
+      - name: comment_body
+      - name: sent_at
+      - name: answered_at

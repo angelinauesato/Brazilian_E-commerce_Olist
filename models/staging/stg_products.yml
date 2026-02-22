@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "Product catalog including physical dimensions for logistics."
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: category_name
+      - name: name_character_count
+      - name: description_character_count
+      - name: photo_count
+      - name: weight_grams
+      - name: length_cm
+      - name: height_cm
+      - name: width_cm

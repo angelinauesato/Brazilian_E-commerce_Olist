@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_geolocation
+    description: "Lat/Long coordinates for Brazilian zip codes."
+    columns:
+      - name: zip_code_prefix
+        description: "The first 5 digits of the zip code."
+      - name: latitude
+        tests:
+          - not_null
+      - name: longitude
+        tests:
+          - not_null
+      - name: city
+      - name: state_code
