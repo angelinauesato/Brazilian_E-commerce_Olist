@@ -42,14 +42,14 @@ models:
       relation: true
       columns: true
     staging:
-      +materialized: view
       +schema: prod_olist
+      +materialized: view
     intermediate:
-      +materialized: view
       +schema: prod_olist
+      +materialized: view
     mart:
-      +materialized: table
       +schema: mart
+      +materialized: table
     utilities:
       +materialized: table
       +schema: mart

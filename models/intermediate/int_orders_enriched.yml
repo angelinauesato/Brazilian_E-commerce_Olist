@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: int_orders_enriched
+    description: "Holistic view of an order, combining logistics, finance, and customer sentiment."
+    columns:
+      - name: delivery_sla_delta_days
+        description: "Days between actual and estimated delivery. Positive means early, negative means late."
+      - name: is_late_delivery
+        description: "Binary flag (1/0) indicating if the order arrived after the promised date."

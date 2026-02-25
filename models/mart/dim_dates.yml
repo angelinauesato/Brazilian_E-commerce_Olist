@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: dim_dates
+    description: model with metrics related to date.
+    columns:
+      - name: sk_date
+        data_type: varchar
+        description: "Surrogate key generated from the date_day. Primary key for this table."
+        tests:
+          - unique
+          - not_null
+
+      - name: date_actual
+        data_type: date
+        description: "The actual date in YYYY-MM-DD format."
+        tests:
+          - unique
+          - not_null
+
+      - name: year_actual
+        data_type: number
+        description: "The actual year in YYYY [2016 - 2018]."
+
+      - name: month_actual
+        data_type: number
+        description: "Month number of the year [1-12]."
+        tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+      - name: day_actual
+        data_type: number
+        description: "The actual day. [1 - 31]."
+
+      - name: month_name
+        data_type: varchar
+        description: "Month name of the year [January-December]."
+
+      - name: day_name_short
+        data_type: varchar
+        description: "Short day name of the year [Sun-Sat]."
+
+      - name: day_of_week
+        data_type: number
+        description: "The day of the week in number [0 - 6]."
+
+      - name: quarter
+        data_type: number
+        description: "The number of the quarter [1-4]."
+
+      - name: day_of_year
+        data_type: number
+        description: "Day number of the year [1-365]."
