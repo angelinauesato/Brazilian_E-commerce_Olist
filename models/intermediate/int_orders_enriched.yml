@@ -2,9 +2,85 @@ version: 2
 
 models:
   - name: int_orders_enriched
-    description: "Holistic view of an order, combining logistics, finance, and customer sentiment."
+    description: model to calculate your delivery performance metrics.
     columns:
+      - name: order_id
+        data_type: varchar
+        description: Unique order identifier.
+        tests:
+          - not_null
+          - unique
+
+      - name: order_status
+        data_type: varchar
+        description: "Track in which stage is the order."
+        tests:
+          - accepted_values:
+              arguments: 
+                values: ['unavailable', 'delivered', 'canceled', 'shipped', 'invoiced', 'created', 'processing','approved']
+
+      - name: user_id
+        data_type: varchar
+        description: "Unique customer Id"
+        tests:
+          - not_null
+
+      - name: customer_zip_code
+        data_type: varchar
+        description: "Customer Zip Code."
+
+      - name: purchased_at
+        data_type: timestamp_ntz
+        description: "Purchased Date."
+
+      - name: approved_at
+        data_type: timestamp_ntz
+        description: "Purchase Approved Date"
+
+      - name: shipped_at
+        data_type: timestamp_ntz
+        description: "Shipped Date."
+
+      - name: delivered_at
+        data_type: timestamp_ntz
+        description: "Delivered Date."
+
+      - name: estimated_delivery_at
+        data_type: timestamp_ntz
+        description: "Estimated Delivery Date."
+
+      - name: total_payment_amount
+        data_type: number
+        description: "Total payment amount made."
+
+      - name: payment_method_count
+        data_type: number
+        description: "Number of payments used in the order."
+
+      - name: max_installments
+        data_type: number
+        description: "Number of installment."
+
+      - name: has_voucher_payment
+        data_type: number
+        description: "Flag for voucher payment."
+
+      - name: avg_rating_score
+        data_type: float
+        description: "AVG rating score per order."
+
+      - name: total_reviews
+        data_type: number
+        description: "Number of reviews per order."
+
+      - name: actual_delivery_time_days
+        data_type: number
+        description: "Days from purchased to delivered."
+
       - name: delivery_sla_delta_days
+        data_type: number
         description: "Days between actual and estimated delivery. Positive means early, negative means late."
+
       - name: is_late_delivery
+        data_type: number
         description: "Binary flag (1/0) indicating if the order arrived after the promised date."

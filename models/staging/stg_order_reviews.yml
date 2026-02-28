@@ -6,12 +6,15 @@ models:
     columns:
       - name: review_id
         tests:
+          - not_null
           - unique:
               config:
                   severity: Warn
                   warn_if: ">10" # we will remove the duplication of reviews in the intermediate layers.
-          - not_null
       - name: order_id
+        tests:
+          - not_null
+          
       - name: rating_score
         tests:
           - accepted_values:

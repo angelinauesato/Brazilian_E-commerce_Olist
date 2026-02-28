@@ -9,6 +9,7 @@ models:
           - unique
           - not_null
       - name: customer_id
+        description: "Customer Identification."
       - name: order_status
         tests:
           - accepted_values:
@@ -19,7 +20,10 @@ models:
         tests:
           - not_null
       - name: approved_at
+        description: "Timestamp when the purchase was approved."
       - name: shipped_at
+        description: "Timestamp when the order was shipped."
       - name: delivered_at
         description: "Actual date of delivery. Null if order is still in progress."
       - name: estimated_delivery_at
+        description: "Estimated date of delivery."

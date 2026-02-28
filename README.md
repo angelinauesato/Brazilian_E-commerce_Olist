@@ -4,6 +4,8 @@
  1. Architecture: Explain the Staging $\rightarrow$ Intermediate $\rightarrow$ Mart flow.
  2. Key Metric: Define the "Perfect Order Rate" (the percentage of orders that are delivered on time with a 5-star rating).
  3. Tech Stack: dbt (dbt Cloud), Snowflake, and packages: dbt_utils + codegen packages.
+    3.1 [dbt_utils](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/)
+    3.2 [codegen](https://hub.getdbt.com/dbt-labs/codegen/latest/)
 
 ### Resources:
 - Dataset source: [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)

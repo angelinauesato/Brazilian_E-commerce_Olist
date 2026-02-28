@@ -16,7 +16,7 @@ reviews as (
     group by 1
 ),
 
-customers as (
+customers_orders as (
     select * from {{ ref('stg_customers') }}
 ),
 
@@ -56,7 +56,7 @@ int_orders_enriched as (
     from orders o
     left join payments p on o.order_id = p.order_id
     left join reviews r on o.order_id = r.order_id
-    left join customers c on o.customer_id = c.order_customer_key
+    left join customers_orders c on o.customer_id = c.order_customer_key
 )
 
 select * from int_orders_enriched

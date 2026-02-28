@@ -1,6 +1,9 @@
 with source as (
 
-    select * from {{ source('olist_raw', 'olist_customers') }}
+    select 
+        {{ trim_quotes_all(source('olist_raw', 'olist_customers')) }}
+
+    from {{ source('olist_raw', 'olist_customers') }}
 
 ),
 
@@ -15,7 +18,7 @@ stg_customers as (
         
         -- Geography
         customer_zip_code_prefix as zip_code_prefix,
-        customer_city as city,
+        {{ clean_city_names('customer_city') }} as city,
         customer_state as state_code
 
     from source

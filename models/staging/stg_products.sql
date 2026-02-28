@@ -5,24 +5,22 @@ with source as (
 ),
 
 stg_products as (
-
     select
         product_id,
         product_category_name as category_name,
-        
+
         -- Fixing typos and clarifying metadata
-        product_name_lenght as name_character_count,
-        product_description_lenght as description_character_count,
-        product_photos_qty as photo_count,
-        
+        cast(product_name_lenght as number) as name_character_count,
+        cast(product_description_lenght as number) as description_character_count,
+        cast(product_photos_qty as number) as photo_count,
+
         -- Physical dimensions (Crucial for logistics)
-        product_weight_g as weight_grams,
-        product_length_cm as length_cm,
-        product_height_cm as height_cm,
-        product_width_cm as width_cm
+        cast(product_weight_g as number) as weight_grams,
+        cast(product_length_cm as number) as length_cm,
+        cast(product_height_cm as number) as height_cm,
+        cast(product_width_cm as number) as width_cm
 
     from source
-
 )
 
 select * from stg_products

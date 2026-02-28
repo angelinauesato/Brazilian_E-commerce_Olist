@@ -8,10 +8,18 @@ models:
         tests:
           - unique
           - not_null
+          - no_double_quotes
       - name: user_id
         description: "The permanent ID for a customer across multiple orders."
         tests:
           - not_null
+          - no_double_quotes
       - name: zip_code_prefix
+        tests:
+          - no_double_quotes
       - name: city
+        tests:
+          - no_double_quotes
       - name: state_code
+        tests:
+          - no_double_quotes

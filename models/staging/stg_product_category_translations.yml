@@ -8,5 +8,5 @@ models:
         tests:
           - unique
           - not_null
-      - name: category_name
+      - name: category_name_en
         description: "English translation of category used for reporting."

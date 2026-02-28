@@ -10,11 +10,11 @@ stg_orders as (
         order_id,
         customer_id,
         order_status,
-        order_purchase_timestamp as purchased_at,
-        order_approved_at as approved_at,
-        order_delivered_carrier_date as shipped_at,
-        order_delivered_customer_date as delivered_at,
-        order_estimated_delivery_date as estimated_delivery_at
+        cast(order_purchase_timestamp as timestamp) as purchased_at,
+        cast(order_approved_at as timestamp) as approved_at,
+        cast(order_delivered_carrier_date as timestamp) as shipped_at,
+        cast(order_delivered_customer_date as timestamp) as delivered_at,
+        to_date(order_estimated_delivery_date) as estimated_delivery_at
 
     from source
 

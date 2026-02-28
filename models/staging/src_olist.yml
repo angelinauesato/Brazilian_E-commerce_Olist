@@ -6,6 +6,15 @@ sources:
     schema: raw_olist
     tables:
       - name: olist_orders
+        config: # added freshness, just as example of freshness test in prod for source
+          freshness:
+            warn_after:
+              count: 1500 # as the dataset is from 2016 to 2018
+              period: day # could be: minute | hour | day
+            error_after:
+              count: 3500
+              period: day
+          loaded_at_field: "ORDER_PURCHASE_TIMESTAMP::timestamp"
       - name: olist_geolocation
       - name: olist_order_items
       - name: olist_customers

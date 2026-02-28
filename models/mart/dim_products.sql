@@ -3,6 +3,7 @@ with products_enriched as (
 ),
 
 dim_products as (
+
     select
         product_id,
         category_name,

@@ -4,26 +4,28 @@ with sellers as (
 
 geolocation as (
     select
-        geolocation_zip_code_prefix as zip_code_prefix,
-        avg(geolocation_lat) as lat,
-        avg(geolocation_lng) as lng
-    from {{ source('olist_raw', 'olist_geolocation') }}
+        zip_code_prefix,
+        avg(latitude) as avg_latitude,
+        avg(longitude) as avg_longitude
+
+    from {{ ref('stg_geolocation') }}
+
     group by 1
 ),
 
 dim_sellers as (
     select
         seller.seller_id,
-        seller.seller_zip_code,
-        seller.seller_city,
-        seller.seller_state,
-        geo.lat as seller_lat,
-        geo.lng as seller_lng
+        seller.zip_code_prefix,
+        seller.city,
+        seller.state_code,
+        geo.avg_latitude as seller_lat,
+        geo.avg_longitude as seller_lng
 
     from sellers as seller
 
     left join geolocation as geo
-        on seller.seller_zip_code = geo.zip_code_prefix
+        on seller.zip_code_prefix = geo.zip_code_prefix
 )
 
 select * from dim_sellers

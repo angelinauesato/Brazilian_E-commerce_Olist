@@ -1,6 +1,19 @@
 with payments as (
 
-    select * from {{ ref('stg_order_payments') }}
+    select 
+        order_id,
+        cast(
+            payment_method_sequence as number
+        ) as payment_method_sequence,
+        payment_method,
+        cast(
+            installment_count as number
+        ) as installment_count,
+        cast(
+            payment_amount as number(10,2)
+        ) as payment_amount
+
+    from {{ ref('stg_order_payments') }}
 
 ),
 
@@ -21,7 +34,7 @@ int_order_payments_aggregated as (
         -- Creating flags for specific payment methods (High business value)
         max(case when payment_method = 'credit_card' then 1 else 0 end) as has_credit_card_payment,
         max(case when payment_method = 'voucher' then 1 else 0 end) as has_voucher_payment,
-        max(case when payment_method = 'boleto' then 1 else 0 end) as has_boleto_payment
+        max(case when payment_method = 'invoice' then 1 else 0 end) as has_invoice_payment
 
     from payments
     group by 1

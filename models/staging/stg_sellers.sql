@@ -9,7 +9,7 @@ stg_sellers as (
     select
         seller_id,
         seller_zip_code_prefix as zip_code_prefix,
-        seller_city as city,
+        {{ clean_city_names('seller_city') }} as city,
         seller_state as state_code
 
     from source
