@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "The central fact table for Olist performance. Grain is one row per order."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+      - name: order_date_key
+        description: "FK to dim_dates. Ensures every order is tied to a valid date for reporting."
+        tests:
+          - not_null
+          - relationships:
+              arguments: 
+                to: ref('dim_dates')
+                field: sk_date
+
+      - name: gmv
+        description: "Gross Merchandise Value. Must be positive."
+        tests:
+          - dbt_utils.expression_is_true:
+                arguments: 
+                  expression: ">= 0"
+
+      - name: is_perfect_order
+        description: "Binary flag for high-quality fulfillment."
+        tests:
+          - accepted_values:
+              arguments: 
+                values: [0, 1]

@@ -11,14 +11,22 @@ models:
           - not_null
       - name: order_id
       - name: line_item_number
+        description: "Order of the item in the shopping cart."
       - name: product_id
+        description: "Identifier for product."
+        tests:
+          - not_null
       - name: seller_id
+        description: "Identifier for seller."
+        tests:
+          - not_null
       - name: seller_ship_before_at
       - name: item_price_amount
         tests:
           - dbt_utils.expression_is_true:
               arguments:
-                expression: ">= 0"
+                expression: ">=0"
       - name: seller_ship_before_at
         description: "The deadline for the seller to ship the product (Merchant SLA)."
       - name: total_item_cost_amount
+        description: "Total value per item (price + freight)."

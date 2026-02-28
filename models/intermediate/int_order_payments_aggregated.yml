@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: int_order_payments_aggregated
+    description: model combines cleaned payments with orders.
+    columns:
+      - name: order_id
+        data_type: varchar
+        description: "Unique order identifier."
+        tests:
+          - not_null
+          - unique
+
+      - name: total_payment_amount
+        data_type: float
+        description: "Total payment amount made."
+
+      - name: max_installments
+        data_type: number
+        description: "Number of installment."
+
+      - name: payment_method_count
+        data_type: number
+        description: "Number of payments used in the order."
+
+      - name: has_credit_card_payment
+        data_type: number
+        description: "Flag for credit_card payment."
+
+      - name: has_voucher_payment
+        data_type: number
+        description: "Flag for voucher payment."
+
+      - name: has_invoice_payment
+        data_type: number
+        description: "Flag for invoice payment."
