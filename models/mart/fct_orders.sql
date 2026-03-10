@@ -17,6 +17,7 @@ fct_orders as (
         ord.order_id,
         ord.user_id,
         dim_dates.sk_date as order_date_key, -- Surrogate key from dim_dates
+        ord.purchased_at,
         ord.customer_zip_code,
 
         -- Status & Logistics Attributes

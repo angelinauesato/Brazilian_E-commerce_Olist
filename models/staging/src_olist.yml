@@ -6,6 +6,17 @@ sources:
     schema: raw_olist
     tables:
       - name: olist_orders
+        columns:
+          - name: order_id
+            data_tests:
+              - not_null
+              - unique
+          - name: customer_id
+            data_tests:
+              - not_null
+          - name: order_purchase_timestamp
+            data_tests:
+              - not_null
         config: # added freshness, just as example of freshness test in prod for source
           freshness:
             warn_after:
@@ -17,9 +28,62 @@ sources:
           loaded_at_field: "ORDER_PURCHASE_TIMESTAMP::timestamp"
       - name: olist_geolocation
       - name: olist_order_items
+        columns:
+          - name: order_id
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('olist_raw', 'olist_orders')
+                    field: order_id
+          - name: product_id
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('olist_raw', 'olist_products')
+                    field: product_id
+              
       - name: olist_customers
+        columns:
+          - name: customer_id
+            data_tests:
+              - not_null
+              - unique
+          - name: customer_zip_code_prefix
+            data_tests:
+              - not_null
+          - name: customer_city
+            data_tests:
+              - not_null
+          - name: customer_state
+            data_tests:
+              - not_null
       - name: olist_products
       - name: olist_order_payments
+        columns:
+          - name: order_id
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('olist_raw', 'olist_orders')
+                    field: order_id
       - name: olist_order_reviews
+        columns:
+          - name: review_id
+            data_tests:
+              - not_null
+          - name: order_id
+            data_tests:
+              - relationships:
+                  arguments:
+                    to: source('olist_raw', 'olist_orders')
+                    field: order_id
       - name: olist_sellers
+        columns:
+          - name: seller_id
+            data_tests:
+              - not_null
+              - unique
       - name: product_category_name_translation
