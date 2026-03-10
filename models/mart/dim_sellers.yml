@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_sellers
+    description: Sellers information with locations.
+    columns:
+      - name: seller_id
+        data_type: varchar
+        description: Seller identifier.
+
+      - name: zip_code_prefix
+        data_type: varchar
+        description: First 5 digit of Brazilian zip code.
+
+      - name: city
+        data_type: varchar
+        description: City name.
+
+      - name: state_code
+        data_type: varchar
+        description: State name
+
+      - name: seller_lat
+        data_type: float
+        description: Average latitude for the zip code prefix.
+
+      - name: seller_lng
+        data_type: float
+        description: Average longitude for the zip code prefix.

@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "dim_products will provide category_name in English.
+      also shippment informations for the product."
+    columns:
+      - name: product_id
+        data_type: varchar
+        description: Product Identifier
+
+      - name: category_name
+        data_type: varchar
+        description: Category Name of the product.
+
+      - name: weight_grams
+        data_type: number
+        description: Weight in grams for shippment.
+
+      - name: volume_cm3
+        data_type: number
+        description: Volume of the product for shippment.
+
+      - name: shipping_category
+        data_type: varchar
+        description: Shippment category based in weight.
+        tests:
+          - accepted_values:
+              arguments: 
+                values: ['heavy', 'medium', 'light']
+
+      - name: listing_quality
+        data_type: varchar
+        description: Listing quality depends on how many photos the product has.
+        tests:
+          - accepted_values:
+              arguments: 
+                values: ['high_quality_listing', 'basic_listing']

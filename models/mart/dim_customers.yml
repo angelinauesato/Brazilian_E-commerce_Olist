@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "This model links customers to their coordinates.
+      Since the geolocation table often contains multiple records per zip code, we use an aggregation to get the center point of that zip code.
+      Zip Code in Brazil have this format: 'xxxxx-xxx'"
+    columns:
+      - name: user_id
+        data_type: varchar
+        description: User Identifier.
+
+      - name: zip_code_prefix
+        data_type: varchar
+        description: First 5 digit of Brazilian zip code.
+
+      - name: city
+        data_type: varchar
+        description: City name
+
+      - name: state
+        data_type: varchar
+        description: State Name
+
+      - name: lat
+        data_type: float
+        description: Average latitude for the zip code prefix.
+
+      - name: lng
+        data_type: float
+        description: Average longitude for the zip code prefix.

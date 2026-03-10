@@ -1,28 +1,43 @@
-with products_enriched as (
-    select * from {{ ref('int_products_enriched') }}
+with customers as (
+    select * from {{ ref('stg_customers') }}
 ),
 
-dim_products as (
+geolocation as (
+    -- Take the average lat/lng for each zip code to avoid duplicates
     select
-        product_id,
-        category_name,
-        weight_grams,
-        volume_cm3,
-        
-        -- Business Logic: Logistics Categorization
-        case 
-            when weight_grams > 5000 or volume_cm3 > 30000 then 'heavy/bulky'
-            when weight_grams between 1000 and 5000 then 'medium'
-            else 'light'
-        end as shipping_category,
-        
-        -- Quality Score (Example: based on photos and description)
-        case 
-            when photo_count > 3 then 'high_quality_listing'
-            else 'basic_listing'
-        end as listing_quality
+        zip_code_prefix,
+        avg(latitude) as lat,
+        avg(longitude) as lng,
+        max(city) as city,
+        max(state_code) as state
 
-    from products_enriched
+    from {{ ref('stg_geolocation') }}
+
+    group by 1
+),
+
+dim_customers as (
+    select
+        customer.user_id,
+        customer.zip_code_prefix,
+        geo.city,
+        geo.state,
+        geo.lat,
+        geo.lng
+
+        /*
+        TODO customer:
+        lifetime_value - total_amount spent
+        number_of_orders
+        Days_Since_Last_Purchase
+        first_order_date
+        most_recent_order_date
+        */
+
+    from customers as customer
+
+    left join geolocation as geo
+        on customer.zip_code_prefix = geo.zip_code_prefix
 )
 
-select * from dim_products
+select * from dim_customers

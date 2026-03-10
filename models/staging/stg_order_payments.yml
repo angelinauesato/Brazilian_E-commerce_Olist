@@ -5,8 +5,12 @@ models:
     description: "Transactional data for order payments and installments."
     columns:
       - name: order_id
-        tests:
+        data_tests:
           - not_null
+          - relationships:
+              arguments: 
+                to: ref('stg_orders')
+                field: order_id
       - name: payment_method_sequence
       - name: payment_method
         tests:
